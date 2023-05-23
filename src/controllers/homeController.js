@@ -2,11 +2,11 @@ const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
 
-const cubeManager = require('../managers/cubeManager'); 
+//const cubeManager = require('../managers/cubeManager'); 
 
 //GET
 router.get('/', (req,res) => {
-    const cubes = cubeManager.getAllCubes();
+    //const cubes = cubeManager.getAllCubes();
 
     //TODO: Export in manager
     fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
