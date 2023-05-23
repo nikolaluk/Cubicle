@@ -5,19 +5,14 @@ const path = require('path');
 
 //Modules
 const expressConfig = require('./config/expressConfig');
+const handlebarsConfig = require('./config/handlebarsConfig');
 
 const app = express();
 const port = 5000;
 
-//Express config
+//Config
 expressConfig(app);
-
-//Handlebars config
-app.engine('hbs',handlebars.engine({
-    extname: 'hbs',
-}));
-app.set('view engine', 'hbs');
-app.set('views', 'src/views');
+handlebarsConfig(app);
 
 
 //Routes
