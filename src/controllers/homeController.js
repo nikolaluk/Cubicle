@@ -2,9 +2,22 @@ const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
 
+const cubeManager = require('../managers/cubeManager'); 
+
 //GET
 router.get('/', (req,res) => {
-    res.render("index");
+    const cubes = cubeManager.getAllCubes();
+
+    //TODO: Export in manager
+    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
+        if(err){
+            throw err;
+        }
+    
+        let cubes = JSON.parse(data);
+        res.render('index',{cubes});
+
+    });
 });
 
 router.get('/create', (req,res) => {
@@ -30,7 +43,7 @@ router.post('/create',(req,res) => {
         cubes.push({name,description,imageUrl,difficultyLevel,id});
         let json = JSON.stringify(cubes);
 
-        fs.writeFile(path.resolve(__dirname,'../data/cubes.json'),json, () => console.log("Cube added"));
+        fs.writeFile(path.resolve(__dirname,'../data/cubes.json'), json, () => console.log("Cube added"));
     });
 
     res.redirect('/');

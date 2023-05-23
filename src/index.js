@@ -17,6 +17,7 @@ handlebarsConfig(app);
 //Routes
 app.use(homeController);
 
+//404
 
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
