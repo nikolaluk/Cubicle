@@ -15,6 +15,10 @@ router.get('/about',(req,res) => {
     res.render('about');
 });
 
+router.get('*',(req,res) => {
+    res.render('404');
+});
+
 //POST
 router.post('/create',(req,res) => {
     const {name,description,imageUrl,difficultyLevel} = req.body;
@@ -31,5 +35,7 @@ router.post('/create',(req,res) => {
 
     res.redirect('/');
 });
+
+
 
 module.exports = router;
