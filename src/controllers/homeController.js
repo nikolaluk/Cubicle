@@ -7,6 +7,7 @@ const path = require('path');
 //GET
 router.get('/', (req,res) => {
     //const cubes = cubeManager.getAllCubes();
+    const {search,from,to} = req.query;
 
     //TODO: Export in manager
     fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
@@ -15,6 +16,16 @@ router.get('/', (req,res) => {
         }
     
         let cubes = JSON.parse(data);
+
+        if(search){
+            cubes = cubes.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()));
+        }
+        if(from){
+            cubes = cubes.filter(cube => cube.difficultyLevel >= from);
+        }
+        if(to){
+            cubes = cubes.filter(cube => cube.difficultyLevel <= to);
+        }
         res.render('index',{cubes});
 
     });
