@@ -26,8 +26,8 @@ router.get('/', (req,res) => {
         if(to){
             cubes = cubes.filter(cube => cube.difficultyLevel <= to);
         }
-        res.render('index',{cubes});
-
+        
+        res.render('index',{cubes,search,from,to});
     });
 });
 
