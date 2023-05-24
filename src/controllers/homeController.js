@@ -28,9 +28,20 @@ router.get('/about',(req,res) => {
     res.render('about');
 });
 
+router.get('/details/:id',(req,res) => {
+    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
+        
+        let cubes = JSON.parse(data);
+        let currentCube = cubes.filter(x => x.id == req.params.id)[0];
+
+        res.render('details',currentCube);
+    });
+});
+
 router.get('*',(req,res) => {
     res.render('404');
 });
+
 
 //POST
 router.post('/create',(req,res) => {

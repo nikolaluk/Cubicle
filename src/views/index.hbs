@@ -8,6 +8,7 @@
         <input type="submit" value="search">
     </form>
 
+    {{#if cubes}}
     {{#each cubes}}
     <div class="cube">
         <img class="cube" src="{{imageUrl}}">
@@ -16,5 +17,7 @@
         <a class="btn" href="/details/{{id}}">Details</a>
     </div>
     {{/each}}
-
+    {{else}}
+    <h1>No cubes found</h1>
+    {{/if}}
 </main>
