@@ -35,5 +35,20 @@ const getCubeById = function(id,callback){
     });
 }
 
+const createNewCube = function(name,description,imageUrl,difficultyLevel){
+    let id = new Date().getTime();
+    
+    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
+        
+        let cubes = JSON.parse(data);
+        cubes.push({name,description,imageUrl,difficultyLevel,id});
+        let json = JSON.stringify(cubes);
+
+        fs.writeFile(path.resolve(__dirname,'../data/cubes.json'), json, () => console.log("Cube added"));
+    });
+
+}
+
 exports.getAllCubes = getAllCubes;
 exports.getCubeById = getCubeById;
+exports.createNewCube = createNewCube;

@@ -35,17 +35,7 @@ router.get('*',(req,res) => {
 //POST
 router.post('/create',(req,res) => {
     const {name,description,imageUrl,difficultyLevel} = req.body;
-    let id = new Date().getTime();
-    
-    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
-        
-        let cubes = JSON.parse(data);
-        cubes.push({name,description,imageUrl,difficultyLevel,id});
-        let json = JSON.stringify(cubes);
-
-        fs.writeFile(path.resolve(__dirname,'../data/cubes.json'), json, () => console.log("Cube added"));
-    });
-
+    cubeManager.createNewCube(name,description,imageUrl,difficultyLevel);
     res.redirect('/');
 });
 
