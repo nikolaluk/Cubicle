@@ -2,31 +2,13 @@ const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
 
-//const cubeManager = require('../managers/cubeManager'); 
+const cubeManager = require('../managers/cubeManager'); 
 
 //GET
 router.get('/', (req,res) => {
-    //const cubes = cubeManager.getAllCubes();
     const {search,from,to} = req.query;
 
-    //TODO: Export in manager
-    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
-        if(err){
-            throw err;
-        }
-    
-        let cubes = JSON.parse(data);
-
-        if(search){
-            cubes = cubes.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()));
-        }
-        if(from){
-            cubes = cubes.filter(cube => cube.difficultyLevel >= from);
-        }
-        if(to){
-            cubes = cubes.filter(cube => cube.difficultyLevel <= to);
-        }
-        
+    cubeManager.getAllCubes(search,from,to, (cubes) => {
         res.render('index',{cubes,search,from,to});
     });
 });
@@ -40,12 +22,8 @@ router.get('/about',(req,res) => {
 });
 
 router.get('/details/:id',(req,res) => {
-    fs.readFile(path.resolve(__dirname,'../data/cubes.json'),(err,data) => {
-        
-        let cubes = JSON.parse(data);
-        let currentCube = cubes.filter(x => x.id == req.params.id)[0];
-
-        res.render('details',currentCube);
+    cubeManager.getCubeById(req.params.id, (cube) => {
+        res.render('details',cube);
     });
 });
 
